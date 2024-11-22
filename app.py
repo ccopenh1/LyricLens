@@ -36,12 +36,24 @@ def set_user_identifier():
     user_id = request.cookies.get('user_id')  # Check if 'user_id' exists in cookies
     if not user_id:  # If no 'user_id', generate one
         user_id = str(uuid.uuid4())
-        resp = make_response()
+        resp = make_response(render_template(request.endpoint))  # Render the endpoint's template
         resp.set_cookie('user_id', user_id)
         print(f"New user ID generated: {user_id}")
         return resp
     else:
         print(f"Existing user ID: {user_id}")
+
+# @app.before_request
+# def set_user_identifier():
+#     user_id = request.cookies.get('user_id')  # Check if 'user_id' exists in cookies
+#     if not user_id:  # If no 'user_id', generate one
+#         user_id = str(uuid.uuid4())
+#         resp = make_response(render_template(request.endpoint))  # Render the endpoint's template
+#         resp.set_cookie('user_id', user_id)
+#         print(f"New user ID generated: {user_id}")
+#         return resp
+#     else:
+#         print(f"Existing user ID: {user_id}")
 
 def add_to_history(user_id, song_data, song_key):
     key = f"user:{user_id}"  # Key for Redis
