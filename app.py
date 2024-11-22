@@ -93,7 +93,7 @@ def redis_test():
     message = message.decode('utf-8') if message else "No message found."
     return render_template('redistest.html', message=message)
 
-@app.get('/')
+@app.get('/index')
 def index():
     try:
         redis_client.ping()
